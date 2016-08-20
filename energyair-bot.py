@@ -1,10 +1,13 @@
 # coding=utf-8
 
-# Script: energyair-bot.py v0.3 by luvirx
-## How to call, run: ./race.sh
+# Script:  energyair-bot.py
+# Version: v0.5
+# Author:  luvirx
+# Run:     ./race.sh
 
 # Imports
 from selenium import webdriver
+import time
 
 # Questions and answers
 questions = {
@@ -50,7 +53,7 @@ questions = {
 driver = webdriver.Firefox()
 driver.get('https://game.energy.ch')
 
-# Start the ggame
+# Start the game
 driver.find_element_by_link_text('Los gehts!').click()
 
 # Answer all questions with the help of the answer list
@@ -59,11 +62,19 @@ for i in range(10):
     answer = questions[question.encode('utf-8', 'ignore')]
     driver.find_elements_by_tag_name('label')[answer-1].click()
     driver.find_element_by_id('submitQuestion').click()
+    time.sleep(1)
 
-# Klick on 1 of the 12 logos
-driver.find_element_by_tag_name('button').click()
-driver.find_elements_by_tag_name('a')[6].click()
+# If all answers were correct
+if(driver.find_element_by_tag_name('h1').text.encode('utf-8','ignore') == "Glückwunsch!"):
+    
+    # Click on 1 of the 12 logos
+    time.sleep(3)
+    driver.find_element_by_tag_name('button').click()
+    time.sleep(3)
+    driver.find_elements_by_tag_name('a')[6].click()
 
-# Close the window if you didn't win
-if(driver.find_element_by_tag_name('h1').text == "Das war das falsche Logo, knapp daneben! Versuche es erneut!"):
+    # Close the window if you didn't win
+    if(driver.find_element_by_tag_name('h1').text == "Das war das falsche Logo, knapp daneben! Versuche es erneut!"):
+        driver.quit()
+else:
     driver.quit()
