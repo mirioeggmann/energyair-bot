@@ -23,7 +23,7 @@ cd energyair-bot
 5. **Replace the phoneNumber = '0791112233' with your own phone number**
 6. Return to the Git Bash and enter the following command:
 ```bash
-phoneNumber = '0791112233'
+py energyair-bot.py
 ```
 
 #### Ubuntu / Debian
