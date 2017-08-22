@@ -16,6 +16,8 @@ The energyair-bot should only be used for educational purposes. Otherwise it is 
 - [Git](https://git-scm.com/downloads)
 - [Docker for Windows](https://store.docker.com/editions/community/docker-ce-desktop-windows)
 - Powershell (already installed on Windows)
+---
+
 ##### Setup
 1. Start the application "Docker for Windows" and wait until Docker is up and running
 2. Open the powershell and enter the following commands:
@@ -24,6 +26,8 @@ git clone https://github.com/mirioeggmann/energyair-bot.git
 cd energyair-bot
 docker build energyair-bot --no-cache -t energyair-bot
 ```
+---
+
 ##### Usage
 - Enter the following commands in the powershell: **(don't forget to replace 0793332211 with your own phone number!)**
 ```bash
@@ -38,6 +42,7 @@ start
 ```bash
 exit
 ```
+---
 
 #### Without Docker
 Not recommended
