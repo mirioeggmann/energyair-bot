@@ -25,7 +25,7 @@ cd energyair-bot
 docker build energyair-bot --no-cache -t energyair-bot
 ```
 ##### Usage
-- Enter the following commands in the powershell:**(don't forget to replace 0793332211 with your own phone number!)**
+- Enter the following commands in the powershell: **(don't forget to replace 0793332211 with your own phone number!)**
 ```bash
 docker run -e PHONE_NUMBER=0793332211 -it energyair-bot bash
 ```
