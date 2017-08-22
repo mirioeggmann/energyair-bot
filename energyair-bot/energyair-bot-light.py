@@ -114,7 +114,8 @@ try:
                         f = open('win.txt', 'wb')
                         f.write(q2.content)
                         f.close()
-                        print("won!")
+                        print("code 5")
+                        print("restart...")
                     else:
                         print("code 4")
                         print("restart...")
