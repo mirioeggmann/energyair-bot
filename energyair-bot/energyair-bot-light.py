@@ -5,6 +5,7 @@ import os
 
 rounds = 0
 phoneNumber = os.environ["PHONE_NUMBER"]
+print(phoneNumber)
 questions = {
     'Wann fand das erste Energy Air statt?' : 1,
     'Wann ist die offizielle Türöffnung beim Energy Air?' : 1,
