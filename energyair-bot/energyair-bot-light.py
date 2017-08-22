@@ -1,19 +1,10 @@
-# Script:  energyair-bot.py
-# Version: v2.0
-
-# Imports
 import sys
 from lxml import html
 import requests
+import os
 
-unanswered = dict()
-errors = 0
-wrong = 0
 rounds = 0
-schief = 0
-phoneNumber = '0791112233'
-
-# Questions and answers
+phoneNumber = os.environ["PHONE_NUMBER"]
 questions = {
     'Wann fand das erste Energy Air statt?' : 1,
     'Wann ist die offizielle Türöffnung beim Energy Air?' : 1,
@@ -76,16 +67,11 @@ questions = {
     'In welcher Schweizer Stadt hat Energy KEIN Radiostudio?' : 3
 }
 
-
 def get_answer(question):
-    print(question)
     answer = questions.get(question, 0)
     if answer == 0:
-        print("unanswered")
-        unanswered.update({question: 0})
         return 1
     return answer
-
 
 def next_question(antwort):
     data = {'question': antwort}
@@ -93,7 +79,6 @@ def next_question(antwort):
     tree = html.fromstring(q2.content)
     frage = tree.xpath('//form[@class="question"]/h1/text()')[0]
     return frage
-
 
 try:
     while True:
@@ -105,7 +90,7 @@ try:
             tree = html.fromstring(q1.content)
 
             frage = tree.xpath('//form[@class="question"]/h1/text()')[0]
-
+            print("answering questions...")
             for i in range(9):
                 antwort = get_answer(frage)
                 frage = next_question(antwort)
@@ -113,17 +98,14 @@ try:
 
             data = {'question': antwort}
             q2 = session.post('https://game.energy.ch/', data)
-            print("alles beantwortet")
+            print("all questions answered!")
 
             tree = html.fromstring(q2.content)
             verloren = tree.xpath('//div[@id="content"]/h2/text()')
-            print(verloren)
             if verloren[0] == "Glückwunsch!":
                 data = {'site': 'win'}
                 q2 = session.post('https://game.energy.ch/', data)
-                print("auf auswahl seite")
                 q2 = session.get('https://game.energy.ch/?ticket=10')
-                print("auf endseite")
                 tree = html.fromstring(q2.content)
                 verloren = tree.xpath('//div[@id="wingame"]/h1/text()')
                 if len(verloren) == 1:
@@ -131,26 +113,23 @@ try:
                         f = open('win.txt', 'wb')
                         f.write(q2.content)
                         f.close()
-                        print("gewonnen!!??")
+                        print("won!")
                     else:
-                        print("verloren - restart")
+                        print("code 4")
+                        print("restart...")
                 else:
-                    print("Etwas ist schief gelaufen - restart")
-                    schief += 1
+                    print("code 3")
+                    print("restart...")
             else:
-                wrong += 1
-                print("zu wenig richtig - restart")
+                print("code 2")
+                print("restart...")
 
         except Exception:
-            print("Es gab ein Fehler - restart")
-            errors += 1
+            print("code 1")
+            print("restart...")
             pass
 finally:
-    print("\n\n--FERTIG--")
-    print("Anzahl Runden insgesamt: " + str(rounds))
-    print("Anzahl Runden falsch beantwortet: " + str(wrong))
-    print("Anzahl Fehler aufgetreten: " + str(errors))
-    print("wubb wubb debug: " + str(schief))
-    print("unanswered questions:")
-    print(*unanswered.keys(), sep='\n')
+    print("\n\n------see ya------")
+    print("Rounds: " + str(rounds))
+    print("------------------")
     sys.exit(0)

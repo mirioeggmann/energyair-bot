@@ -3,6 +3,9 @@ The energyair-bot should only be used for educational purposes. Otherwise it is 
 
 ## Getting started
 
+### Docker
+docker run -e PHONE_NUMBER='0791112233' energyair-bot bash
+
 ### Requirements
 - [Python 3.6](https://www.python.org/downloads/release/python-360/)
 - [Git+Git Bash](https://git-scm.com/downloads)
