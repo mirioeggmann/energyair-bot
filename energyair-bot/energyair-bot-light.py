@@ -2,6 +2,7 @@ import sys
 from lxml import html
 import requests
 import os
+import time
 
 rounds = 0
 phoneNumber = os.environ["PHONE_NUMBER"]
@@ -93,6 +94,7 @@ try:
             frage = tree.xpath('//form[@class="question"]/h1/text()')[0]
             print("answering questions...")
             for i in range(9):
+                time.sleep(0.5)
                 antwort = get_answer(frage)
                 frage = next_question(antwort)
             antwort = get_answer(frage)

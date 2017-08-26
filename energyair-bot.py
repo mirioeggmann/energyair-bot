@@ -5,13 +5,14 @@
 import sys
 from lxml import html
 import requests
+import time
 
 unanswered = dict()
 errors = 0
 wrong = 0
 rounds = 0
 schief = 0
-phoneNumber = '0791112233'
+phoneNumber = '0793767993'
 
 # Questions and answers
 questions = {
@@ -107,6 +108,7 @@ try:
             frage = tree.xpath('//form[@class="question"]/h1/text()')[0]
 
             for i in range(9):
+                time.sleep(0.5)
                 antwort = get_answer(frage)
                 frage = next_question(antwort)
             antwort = get_answer(frage)
